@@ -41,10 +41,36 @@ git add .gitignore
 - Instalação das extensões para formatação de arquivo .json5
 
 - Chamada do script start com NPM ao invés do NPX
-Executar no terminal como se fosse o gerenciador que chama o executor npx
-~~~bash
-npm start
-~~~
 
 - O que é o Chocolatey (e porque não instalá-lo agora)
 
+## Requisição
+
+Para criar uma requisição, podemos utilizar a função fetch API.
+
+~~~js
+
+const requisicao = new Request('http://localhost:3000/produtos', {
+    "method": "GET",
+    "headers": {
+        "content-type": "aplcation/json"
+    }
+});
+~~~
+
+Utilizamos `new request()` para _instanciar_ a interface `Request()` na variável `requisica`, de forma que ela se torna um objeto com os métodosexigidos por essa interface.
+ 
+A requisição é constituída por duas partes: uma URL e um objeto JSON contendo as opções da requisição. `method` define o método da requisição (nesse caso,GET) e `headers` define os cabeçalhos da requisição. `Content-type` define o tipo de conteúdo que está sendo enviado, nesse caso `application/json`.
+
+~~~js
+fetch(requisicao)
+    .then(resposta => resposta.json())
+    .then(resposta => {...});
+~~~
+
+Agora, para enviar essa requisição, utilizamos a função `fetch()` que é uma função
+_assíncrona_ que retorna uma Promise. Essa Promise é resolvida com o objeto `Response`que representa a resposta do servidor.
+
+A função `then()`é utilizada para lidar com a resposta do servidor. Nesse caso, estamos utilizando `then()` duas vezes: uma vez para converter a resposta em JSON, com o método `json()`do objeto `resposta`, e outra vez para lidar com a resposta em si, já que o retorno do primeiro `then()`é parâmetro de entrada do segundo `then()`.
+
+O parâmetro de entrada de uma função `then()` é chamado de _função de callback_.
